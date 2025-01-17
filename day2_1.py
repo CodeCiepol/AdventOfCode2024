@@ -1,6 +1,6 @@
 from pathlib import Path
 
-filepath = "input_2_test"
+filepath = "input_2"
 reports = Path(filepath).read_text().splitlines()
 
 
@@ -29,11 +29,11 @@ def check_report(report):
             return False
 
 
-def is_const_increasing(val, next_val, is_increasing):
+def check_increasing(val, next_val, is_increasing):
     return (val < next_val) == is_increasing
 
 
-def is_diff_lower_than_three(val, next_val):
+def check_nb_diff(val, next_val):
     return 0 < abs(val - next_val) < 4
 
 
@@ -44,12 +44,10 @@ def check_report_rec(report, index=0, is_increasing=None):
     if index >= len(report) - 1:
         return True
 
-    if not (is_const_increasing(report[index], report[index + 1], is_increasing)):
-        print("failed!")
+    if not (check_increasing(report[index], report[index + 1], is_increasing)):
         return False
 
-    if not (is_diff_lower_than_three(report[index], report[index + 1])):
-        print("failed!")
+    if not (check_nb_diff(report[index], report[index + 1])):
         return False
 
     return check_report_rec(report, index + 1, is_increasing)
@@ -58,10 +56,6 @@ def check_report_rec(report, index=0, is_increasing=None):
 nb_correct_reports = 0
 for report in reports:
     report = [int(x) for x in report.split()]
-    print("new report")
     if check_report_rec(report):
         nb_correct_reports += 1
 print(nb_correct_reports)
-
-
-# print(file)
