@@ -40,7 +40,7 @@ def check_nb_diff(val, next_val):
 def check_report_rec(report, index=0, is_increasing=None):
     if is_increasing is None:
         is_increasing = report[index] < report[index + 1]
-    
+
     if index >= len(report) - 1:
         return True
 
